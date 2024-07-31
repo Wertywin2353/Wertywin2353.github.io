@@ -11,7 +11,7 @@ window.onload = function () {
     let time = OnlineCheck.getHours();
     setTimeout(
         function () {
-            if(time <= 14) {
+            if(time <= 14 && time >= 19) {
                 document.getElementById("Online_Ind").style.color = "red";
                 document.getElementById("Notify").firstChild.data = "Offline";
             }
