@@ -12,12 +12,12 @@ window.onload = function () {
     setTimeout(
         function () {
             if(time <= 14) {
-                document.getElementById("Online_Ind").style.color = "greenyellow";
-                document.getElementById("Notify").firstChild.data = "Online";
-            }
-            else {
                 document.getElementById("Online_Ind").style.color = "red";
                 document.getElementById("Notify").firstChild.data = "Offline";
+            }
+            else {
+                document.getElementById("Online_Ind").style.color = "greenyellow";
+                document.getElementById("Notify").firstChild.data = "Online";
             }
         }, 1000
     );
