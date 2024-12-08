@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        fetch("api/dat_store/global.ver")
+    .then((res) => res.text())
+    .then((text) => {
+        document.getElementById('ver').innerHTML = text;
+    })
+    .catch((e) => console.error(e));
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="api/js-core/sec-core.js"></script>
+</head>
+<body>
+    <span>Global Ver: <b id="ver"></b></span>
+    <div id="qrcode"></div>
+
+    <br><br>
+    <input onclick="debug(this.value, document.getElementById('ver').innerText, 1)" style="width: 90%;">
+    <br><br>
+    <input onclick="debug(this.value, document.getElementById('ver').innerText, 0)" style="width: 90%;">
+    <script>
+        // Создание экземпляра QRCode
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: "test", // Введите здесь текст или URL-адрес, который вы хотите закодировать в QR-код
+            width: 256, // Ширина QR-кода в пикселях
+            height: 256, // Высота QR-кода в пикселях
+            colorDark: "#000000", // Цвет кода
+            colorLight: "#ffffff", // Цвет фона
+            correctLevel: QRCode.CorrectLevel.M, // уровень исправления ошибок
+        });
+    </script>
+</body>
+</html>

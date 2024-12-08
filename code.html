@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="api/js-core/new-cp.js"></script>
+    <script src="api/js-core/sec-core.js"></script>
+    <script src="api/js-core/LazyLib-L.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="api/style.css">
+    <title>SupMe | Make an donation</title>
+</head>
+<body style="text-align: center;">
+    <b id="cid" style="display: none;"></b>
+    <header>
+        <div onclick="window.location.href = 'newcode.html';" style="float: left;">
+        <svg width="35px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill="var(--tg-theme-button-color)" d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM13.92 16.13H9C8.59 16.13 8.25 15.79 8.25 15.38C8.25 14.97 8.59 14.63 9 14.63H13.92C15.2 14.63 16.25 13.59 16.25 12.3C16.25 11.01 15.21 9.97 13.92 9.97H8.85L9.11 10.23C9.4 10.53 9.4 11 9.1 11.3C8.95 11.45 8.76 11.52 8.57 11.52C8.38 11.52 8.19 11.45 8.04 11.3L6.47 9.72C6.18 9.43 6.18 8.95 6.47 8.66L8.04 7.09C8.33 6.8 8.81 6.8 9.1 7.09C9.39 7.38 9.39 7.86 9.1 8.15L8.77 8.48H13.92C16.03 8.48 17.75 10.2 17.75 12.31C17.75 14.42 16.03 16.13 13.92 16.13Z" fill="#292D32"/>
+        </svg>
+        </div>
+        <span style="font-size: 19px; position: absolute; left: 50%; translate: -50%; top: 13px;">Платежный QR-Код</span>
+
+        <div style="float: right;" onclick="home()">
+        <?xml version="1.0" ?>
+        <svg width="35" fill="var(--tg-theme-button-color)" viewBox="0 0 24 24" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="grid_system"/><g id="_icons">
+        <path d="M7,21h10c2.2,0,4-1.8,4-4v-6.5c0-1.3-0.6-2.4-1.6-3.2l-5-3.8C13,2.5,11,2.5,9.6,3.6l-5,3.7C3.6,8.1,3,9.2,3,10.5V17   C3,19.2,4.8,21,7,21z M5,10.5c0-0.6,0.3-1.2,0.8-1.6l5-3.8c0.4-0.3,0.8-0.4,1.2-0.4s0.8,0.1,1.2,0.4l5,3.8c0.5,0.4,0.8,1,0.8,1.6   V17c0,1.1-0.9,2-2,2H7c-1.1,0-2-0.9-2-2V10.5z"/>
+        </g></svg>
+        </div>
+    </header>
+    <br><br><br><br><br>
+
+    <div id="qrcode" style="width: min-content; margin: 0 auto;"></div>
+    <br>
+    <div id="window">
+        
+    </div>
+    <br>
+    <div id="after" style="width: 70%; margin: 0 auto;"></div>
+
+
+    <script>
+        let yoolink = 'https://yoomoney.ru/to/4100118916366977';
+        let yoomoney = GetReqData("yoo");
+        let sum = GetReqData("sum");
+        const {
+        bg_color,
+        text_color,
+        hint_color,
+        button_color,
+        button_text_color,
+        secondary_bg_color,
+    } = Telegram.WebApp.themeParams;
+
+        window.onload = function () {
+        if(yoomoney != undefined) {
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: "https://yoomoney.ru/to/4100118916366977", 
+            width: 256,
+            height: 256,
+            colorDark: button_color,
+            colorLight: "transparent",
+            correctLevel: QRCode.CorrectLevel.H,
+            // 2192
+        });
+
+        document.getElementById("after").innerHTML = '<span style="font-size: 15px;">Отсканируйте этот QR с помощью вашей камеры телефона или нажмите по ссылке выше.</span>';
+        document.getElementById("window").innerHTML = "<span onclick='Telegram.WebApp.openLink(yoolink);' style='color: var(--tg-theme-link-color); text-decoration: none; font-size: 16px;'>https://yoomoney.ru/to/4100118916366977</span>"
+        }
+        else {
+        // document.getElementById("qrcode")
+        if(sum == 10) {
+            fetch("media/10.svg")
+        .then((res) => res.text())
+        .then((text) => {
+            document.getElementById("qrcode").innerHTML = text;
+        })
+        .catch((e) => console.error(e));
+
+        }
+        else if(sum == 100) {
+            fetch("media/100.svg")
+        .then((res) => res.text())
+        .then((text) => {
+            document.getElementById("qrcode").innerHTML = text;
+        })
+        .catch((e) => console.error(e));
+        }
+        else if(sum == 1000) {
+            fetch("media/1000.svg")
+        .then((res) => res.text())
+        .then((text) => {
+            document.getElementById("qrcode").innerHTML = text;
+        })
+        .catch((e) => console.error(e));
+        }
+        else if(sum == 10000) {
+            fetch("media/10000.svg")
+        .then((res) => res.text())
+        .then((text) => {
+            document.getElementById("qrcode").innerHTML = text;
+        })
+        .catch((e) => console.error(e));
+        }
+        else if(sum == 100000) {
+            fetch("media/100000.svg")
+        .then((res) => res.text())
+        .then((text) => {
+            document.getElementById("qrcode").innerHTML = text;
+        })
+        .catch((e) => console.error(e));
+        }
+        document.getElementById("window").innerHTML = "<h2>" + sum + " Rub</h2>";
+        document.getElementById("after").innerHTML = '<span style="font-size: 15px;">Отсканируйте этот QR с помощью вашего банковского приложения.</span>';
+        }
+    }
+    </script>
+    <span style="position: fixed; bottom: 3px; left: 50%; translate: -50%; z-index: -1;" id="vers"></span>
+</body>
+</html>
